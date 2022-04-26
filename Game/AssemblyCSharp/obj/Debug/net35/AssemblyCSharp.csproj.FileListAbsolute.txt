@@ -1,0 +1,28 @@
+D:\My project\NRO\QLTK - Copy\QLTK\QLTK\bin\Debug\Game\AssemblyCSharp\bin\Debug\net35\Assembly-CSharp.dll
+D:\My project\NRO\QLTK - Copy\QLTK\QLTK\bin\Debug\Game\AssemblyCSharp\bin\Debug\net35\UnityEngine.dll
+D:\My project\NRO\QLTK - Copy\QLTK\QLTK\bin\Debug\Game\AssemblyCSharp\obj\Debug\net35\AssemblyCSharp.GeneratedMSBuildEditorConfig.editorconfig
+D:\My project\NRO\QLTK - Copy\QLTK\QLTK\bin\Debug\Game\AssemblyCSharp\obj\Debug\net35\AssemblyCSharp.csproj.CoreCompileInputs.cache
+D:\My project\NRO\QLTK - Copy\QLTK\QLTK\bin\Debug\Game\AssemblyCSharp\obj\Debug\net35\AssemblyCSharp.csproj.CopyComplete
+D:\My project\NRO\QLTK - Copy\QLTK\QLTK\bin\Debug\Game\AssemblyCSharp\obj\Debug\net35\Assembly-CSharp.dll
+D:\My project\NRO\QLTK - Copy\QLTK\QLTK\bin\Debug\Game\AssemblyCSharp\obj\Debug\net35\AssemblyCSharp.csproj.AssemblyReference.cache
+C:\Users\VANTHANH\Desktop\AssemblyCSharp\obj\Debug\net35\AssemblyCSharp.csproj.AssemblyReference.cache
+C:\Users\VANTHANH\Desktop\AssemblyCSharp\obj\Debug\net35\AssemblyCSharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\VANTHANH\Desktop\AssemblyCSharp\obj\Debug\net35\AssemblyCSharp.csproj.CoreCompileInputs.cache
+C:\Users\VANTHANH\Desktop\AssemblyCSharp\obj\Debug\net35\Assembly-CSharp.dll
+C:\Users\VANTHANH\Desktop\AssemblyCSharp\bin\Debug\net35\Assembly-CSharp.dll
+C:\Users\VANTHANH\Desktop\AssemblyCSharp\bin\Debug\net35\UnityEngine.dll
+C:\Users\VANTHANH\Desktop\AssemblyCSharp\obj\Debug\net35\AssemblyCSharp.csproj.CopyComplete
+D:\Myproject\NRO\QLTK - Copy\QLTK\QLTK\bin\Debug\Game\AssemblyCSharp\bin\Debug\net35\Assembly-CSharp.dll
+D:\Myproject\NRO\QLTK - Copy\QLTK\QLTK\bin\Debug\Game\AssemblyCSharp\bin\Debug\net35\UnityEngine.dll
+D:\Myproject\NRO\QLTK - Copy\QLTK\QLTK\bin\Debug\Game\AssemblyCSharp\obj\Debug\net35\AssemblyCSharp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Myproject\NRO\QLTK - Copy\QLTK\QLTK\bin\Debug\Game\AssemblyCSharp\obj\Debug\net35\AssemblyCSharp.csproj.CoreCompileInputs.cache
+D:\Myproject\NRO\QLTK - Copy\QLTK\QLTK\bin\Debug\Game\AssemblyCSharp\obj\Debug\net35\AssemblyCSharp.csproj.CopyComplete
+D:\Myproject\NRO\QLTK - Copy\QLTK\QLTK\bin\Debug\Game\AssemblyCSharp\obj\Debug\net35\Assembly-CSharp.dll
+D:\Myproject\NRO\QLTK - Copy\QLTK\QLTK\bin\Debug\Game\AssemblyCSharp\obj\Debug\net35\AssemblyCSharp.csproj.AssemblyReference.cache
+C:\Users\VANTHANH\Desktop\New folder (2)\Game\AssemblyCSharp\bin\Debug\net35\Assembly-CSharp.dll
+C:\Users\VANTHANH\Desktop\New folder (2)\Game\AssemblyCSharp\bin\Debug\net35\UnityEngine.dll
+C:\Users\VANTHANH\Desktop\New folder (2)\Game\AssemblyCSharp\obj\Debug\net35\AssemblyCSharp.csproj.AssemblyReference.cache
+C:\Users\VANTHANH\Desktop\New folder (2)\Game\AssemblyCSharp\obj\Debug\net35\AssemblyCSharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\VANTHANH\Desktop\New folder (2)\Game\AssemblyCSharp\obj\Debug\net35\AssemblyCSharp.csproj.CoreCompileInputs.cache
+C:\Users\VANTHANH\Desktop\New folder (2)\Game\AssemblyCSharp\obj\Debug\net35\AssemblyCSharp.csproj.CopyComplete
+C:\Users\VANTHANH\Desktop\New folder (2)\Game\AssemblyCSharp\obj\Debug\net35\Assembly-CSharp.dll

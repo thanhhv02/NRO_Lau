@@ -103,19 +103,19 @@ namespace AssemblyCSharp.Mod.PickMob
         {
             try
             {
-                sbyte itemID = 0;
-
-                while (itemID < global::Char.myCharz().arrItemBag.Length)
+                while (PickMob.IsACN)
                 {
-                    if (global::Char.myCharz().arrItemBag[(int)itemID].template.id == 381)
+                    for (int i = 0; i < global::Char.myCharz().arrItemBag.Length; i++)
                     {
-                        Service.gI().useItem(0, 1, itemID, -1);
-                        Thread.Sleep(600000);
-                        break;
+                        if (global::Char.myCharz().arrItemBag[i].template.id == 381)
+                        {
+                            Service.gI().useItem(0, 1, (sbyte)i, -1);
+                            GameScr.info1.addInfo("Sử dụng cuồng nộ", 0);
+                            break;
+                        }
                     }
-                    itemID++;
+                    Thread.Sleep(600000);
                 }
-                GameScr.info1.addInfo("Đã sử dụng item cuồng nộ", 0);
 
             }
             catch (Exception ex)
@@ -154,19 +154,19 @@ namespace AssemblyCSharp.Mod.PickMob
         {
             try
             {
-                sbyte itemID = 0;
-
-                while (itemID < global::Char.myCharz().arrItemBag.Length)
+                while (PickMob.IsABH)
                 {
-                    if (global::Char.myCharz().arrItemBag[(int)itemID].template.id == 382)
+                    for (int i = 0; i < global::Char.myCharz().arrItemBag.Length; i++)
                     {
-                        Service.gI().useItem(0, 1, itemID, -1);
-                        Thread.Sleep(600000);
-                        break;
+                        if (global::Char.myCharz().arrItemBag[i].template.id == 382)
+                        {
+                            Service.gI().useItem(0, 1, (sbyte)i, -1);
+                            GameScr.info1.addInfo("Sử dụng bổ huyết", 0);
+                            break;
+                        }
                     }
-                    itemID++;
+                    Thread.Sleep(600000);
                 }
-                GameScr.info1.addInfo("Đã sử dụng item bổ huyết", 0);
 
             }
             catch (Exception ex)
@@ -178,19 +178,19 @@ namespace AssemblyCSharp.Mod.PickMob
         {
             try
             {
-                sbyte itemID = 0;
-
-                while (itemID < global::Char.myCharz().arrItemBag.Length)
+                while (PickMob.IsAGX)
                 {
-                    if (global::Char.myCharz().arrItemBag[(int)itemID].template.id == 384)
+                    for (int i = 0; i < global::Char.myCharz().arrItemBag.Length; i++)
                     {
-                        Service.gI().useItem(0, 1, itemID, -1);
-                        Thread.Sleep(600000);
-                        break;
+                        if (global::Char.myCharz().arrItemBag[i].template.id == 384)
+                        {
+                            Service.gI().useItem(0, 1, (sbyte)i, -1);
+                            GameScr.info1.addInfo("Sử dụng giáp xên", 0);
+                            break;
+                        }
                     }
-                    itemID++;
+                    Thread.Sleep(600000);
                 }
-                GameScr.info1.addInfo("Đã sử dụng item giáp xên", 0);
 
             }
             catch (Exception ex)
@@ -202,19 +202,19 @@ namespace AssemblyCSharp.Mod.PickMob
         {
             try
             {
-                sbyte itemID = 0;
-
-                while (itemID < global::Char.myCharz().arrItemBag.Length)
+                while (PickMob.IsABK)
                 {
-                    if (global::Char.myCharz().arrItemBag[(int)itemID].template.id == 383)
+                    for (int i = 0; i < global::Char.myCharz().arrItemBag.Length; i++)
                     {
-                        Service.gI().useItem(0, 1, itemID, -1);
-                        Thread.Sleep(600000);
-                        break;
+                        if (global::Char.myCharz().arrItemBag[i].template.id == 383)
+                        {
+                            Service.gI().useItem(0, 1, (sbyte)i, -1);
+                            GameScr.info1.addInfo("Sử dụng bổ khí", 0);
+                            break;
+                        }
                     }
-                    itemID++;
+                    Thread.Sleep(600000);
                 }
-                GameScr.info1.addInfo("Đã sử dụng item bổ khí", 0);
 
             }
             catch (Exception ex)

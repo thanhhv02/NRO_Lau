@@ -8057,7 +8057,9 @@ public class Panel : IActionListener, IChatable
 		itemObject.type = itemAction;
 		itemObject.id = index;
 		itemObject.where = where;
+		
 		GameCanvas.startYesNoDlg(info, new Command(mResources.YES, this, 2004, itemObject), new Command(mResources.NO, this, 4005, null));
+		
 	}
 
 	public void saleRequest(sbyte type, string info, short id)
@@ -8066,6 +8068,10 @@ public class Panel : IActionListener, IChatable
 		itemObject.type = type;
 		itemObject.id = id;
 		GameCanvas.startYesNoDlg(info, new Command(mResources.YES, this, 3003, itemObject), new Command(mResources.NO, this, 4005, null));
+		if (PickMob.isSell)
+		{
+			this.perform(4005, itemObject);
+		}
 	}
 	//mod
 	private static Panel _Instance;
@@ -8079,6 +8085,7 @@ public class Panel : IActionListener, IChatable
 
 	public void perform(int idAction, object p)
 	{
+		GameScr.info1.addInfo("" + idAction, 0);
 		#region mod
 		//Pk9rPickMob.performMacSet(idAction, currItem);
 		//Pk9rPickMob.performMacSet2(idAction, currItem);

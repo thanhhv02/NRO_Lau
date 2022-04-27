@@ -495,7 +495,7 @@ public class CrackBallScr : mScreen
 		}
 	}
 
-	private void doClickBall(int index)
+	public void doClickBall(int index)
 	{
 		if (!listBall[index].isDone)
 		{
@@ -514,7 +514,7 @@ public class CrackBallScr : mScreen
 		}
 	}
 
-	private void doClickSkill(int index)
+	public void doClickSkill(int index)
 	{
 		if (indexSkillSelect != index)
 		{

@@ -50,7 +50,8 @@ public class ServerListScreen : mScreen, IActionListener
 	public static string smartPhoneVN = "Nro SUPER:103.90.224.147:14445:0,0,0";
 
 	// Token: 0x04001097 RID: 4247
-	public static string javaVN = "Nro SUPER:103.90.224.147:14445:0,0,0";
+	//public static string javaVN = "Nro SUPER:103.90.224.147:14445:0,0,0";
+	public static string javaVN = smartPhoneVN;
 
 	// Token: 0x04001098 RID: 4248
 	public static string smartPhoneIn;
@@ -481,7 +482,12 @@ public class ServerListScreen : mScreen, IActionListener
 	}
 	public override void update()
 	{
-
+		if (GameCanvas.currentScreen == GameCanvas.loginScr && !Service.reciveFromMainSession)
+		{
+			//mod auto login
+			if (!ServerListScreen.isGetData)
+				PickMob.IsAutoLogin = true;
+		}
 		PickMob.autoLogin();
 		if (waitToLogin)
 		{
@@ -868,7 +874,8 @@ public class ServerListScreen : mScreen, IActionListener
 				GameCanvas.loginScr = new LoginScr();
 			}
 			GameCanvas.loginScr.switchToMe();
-			PickMob.IsAutoLogin = true;
+			if (!ServerListScreen.isGetData)
+				PickMob.IsAutoLogin = true;
 		}
 		if (idAction == 8)
 		{

@@ -1,3 +1,4 @@
+using AssemblyCSharp;
 using AssemblyCSharp.Mod;
 using AssemblyCSharp.Mod.SaveSetting;
 //using AssemblyCSharp.Mod.SaveSetting;
@@ -99,46 +100,54 @@ public class Main : MonoBehaviour
 		{
 			return;
 		}
-		
-		if (Thread.CurrentThread.Name != "Main")
-		{
-			Thread.CurrentThread.Name = "Main";
-		}
-		mainThreadName = Thread.CurrentThread.Name;
-		isPC = true;
-		started = true;
-		#region mod
+        try
+        {
+			if (Thread.CurrentThread.Name != "Main")
+			{
+				Thread.CurrentThread.Name = "Main";
+			}
+			mainThreadName = Thread.CurrentThread.Name;
+			isPC = true;
+			started = true;
 
-		if (AutoLogin.LoadFileAcc())
-		{
-			new Thread(delegate ()
+			if (isPC)
 			{
-				AutoLogin.Login();
-			})
-			{
-				IsBackground = true
-			}.Start();
+
+				QualitySettings.vSyncCount = 1;
+				//level = Rms.loadRMSInt("levelScreenKN");
+				//if (level == 1)
+				//{
+				//	Screen.SetResolution(720, 320, fullscreen: false);
+				//}
+				//else
+				//{
+				//	Screen.SetResolution(1024, 600, fullscreen: false);
+				//}
+				#region mod
+				ChangeServer.Check();
+                if (AutoLogin.LoadFileAcc())
+                {
+                    new Thread(delegate ()
+                    {
+                        AutoLogin.Login();
+                    })
+                    {
+                        IsBackground = true
+                    }.Start();
+                }
+
+                #endregion
+                string[] file = File.ReadAllText("Data\\size.ini").Split('x');
+				int sizeW = int.Parse(file[0]);
+				int sizeH = int.Parse(file[1]);
+				Screen.SetResolution(sizeW, sizeH, fullscreen: false);
+				SoundMn.gI().closeSound();
+			}
 		}
-		#endregion
-		if (isPC)
-		{
+        catch
+        {
 			
-			QualitySettings.vSyncCount = 1;
-            //level = Rms.loadRMSInt("levelScreenKN");
-            //if (level == 1)
-            //{
-            //	Screen.SetResolution(720, 320, fullscreen: false);
-            //}
-            //else
-            //{
-            //	Screen.SetResolution(1024, 600, fullscreen: false);
-            //}
-            string[] file = File.ReadAllText("Data\\size.ini").Split('x');
-			int sizeW = int.Parse(file[0]);
-			int sizeH = int.Parse(file[1]);
-			Screen.SetResolution(sizeW, sizeH, fullscreen: false);
-			SoundMn.gI().closeSound();
-		}
+        }
 	}
 
 	private void SetInit()

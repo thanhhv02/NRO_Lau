@@ -78,6 +78,7 @@ namespace AssemblyCSharp.Mod.PickMob
 
         public static bool isCharAutoFocus;
         public static global::Char CharAutoFocus;
+        public static string mapNameAutoFocus;
         public static bool IsStart;
         public static bool IsAutoChat;
         public static bool IsAutoChatTG;
@@ -137,6 +138,8 @@ namespace AssemblyCSharp.Mod.PickMob
         public static bool isMobFollow;
         public static bool MacSet1t = false;
         public static bool MacSet2t = false;
+        public static bool isSell = false;
+        public static bool isBanVang = false;
         #region Chat
         public static bool Chat(string text)
         {
@@ -605,8 +608,9 @@ namespace AssemblyCSharp.Mod.PickMob
             }
             else if (text == "focus")
             {
-                //isCharAutoFocus = !isCharAutoFocus;
-                charAutoFocus();
+                isCharAutoFocus = !isCharAutoFocus;
+                PickMob.CharAutoFocus = global::Char.myCharz().charFocus;
+                GameScr.info1.addInfo("Auto focus: " + PickMob.CharAutoFocus.cName, 0);
             }
             else if (text == "cpuf")
             {
@@ -1079,18 +1083,6 @@ namespace AssemblyCSharp.Mod.PickMob
                 }.Start();
                 GameScr.info1.addInfo((PickMob.IsAutoBuffDauTheoSec?"Bật":"Tắt")+" buff đậu theo thời gian", 0);
             }
-            else if(text == "dapdo1")
-            {
-                DapDo1 = !DapDo1;
-                GameScr.info1.addInfo((PickMob.DapDo1 ? "Bật" : "Tắt") + " ép spl", 0);
-
-            }
-            else if(text == "dapdo")
-            {
-                DapDo = !DapDo;
-                GameScr.info1.addInfo((PickMob.DapDo ? "Bật" : "Tắt"), 0);
-
-            }
             else if (text == "chp")
             {
                 cHP = !cHP;
@@ -1112,19 +1104,32 @@ namespace AssemblyCSharp.Mod.PickMob
                 cMP = false;
                 GameScr.info1.addInfo("Cộng tiềm năng liên tục vào sd: " + (PickMob.cSD ? "Bật" : "Tắt"), 0);
             }
+            else if (text == "cgiap")
+            {
+                cSD = false;
+                cHP = false;
+                cMP = false;
+                cGiap = !cGiap;
+                GameScr.info1.addInfo("Cộng tiềm năng liên tục vào giáp: " + (PickMob.cGiap ? "Bật" : "Tắt"), 0);
+            }
             else if (text == "dd1")
             {
-                DapDo = !DapDo;
-                GameScr.info1.addInfo("Đập đồ: " + (DapDo ? "Bật" : "Tắt"), 0);
+                DapDo1 = !DapDo1;
+                GameScr.info1.addInfo("Đập đồ: " + (DapDo1 ? "Bật" : "Tắt"), 0);
+            }
+            else if (text == "dd2")
+            {
+                DapDo2 = !DapDo2;
+                GameScr.info1.addInfo("Đập đồ: " + (DapDo2 ? "Bật" : "Tắt"), 0);
             }
             else if (text == "ruong")
             {
                 Service.gI().openMenu(3);
             }
-            else if (text == "vq")
+            else if (text == "vq2")
             {
-                VongQuay = !VongQuay;
-                if (VongQuay == true)
+                VongQuay2 = !VongQuay2;
+                if (VongQuay2 == true)
                 {
                     new Thread(delegate ()
                     {
@@ -1135,6 +1140,25 @@ namespace AssemblyCSharp.Mod.PickMob
                     }.Start();
                 }
                 
+            }
+            else if (text == "vq1")
+            {
+                VongQuay1 = !VongQuay1;
+                if (VongQuay1 == true)
+                {
+                    new Thread(delegate ()
+                    {
+                        VongQuaytd();
+                    })
+                    {
+                        IsBackground = true
+                    }.Start();
+                }
+
+            }
+            else if(text == "vutrac")
+            {
+                IsRemoveItem = !IsRemoveItem;
             }
             else
             {
@@ -1157,9 +1181,12 @@ namespace AssemblyCSharp.Mod.PickMob
             }
             wallPaper = Image.createImage(File.ReadAllBytes("WPP/" + fileName));
         }
-        public static bool DapDo = false;
-        public static bool VongQuay = false;
+        public static bool DapDo2 = false;
+        public static bool VongQuay2 = false;
+        public static bool VongQuay1 = false;
+        public static bool isBanRac = false;
         public static bool DapDo1 = false;
+        public static bool IsRemoveItem = false;
         // cập nhật khu
         public static bool HotKeys()
         {
@@ -1202,16 +1229,13 @@ namespace AssemblyCSharp.Mod.PickMob
                     Chat("ak");
                     break;
                 case 'o':
-                    if(VongQuay == true)
+                    if(VongQuay2 == true || DapDo2 == true || DapDo1 == true || VongQuay1 == true)
                     {
-                        VongQuay = false;
-                        GameScr.info1.addInfo("Tắt vòng quay", 0);
-                        break;
-                    }
-                    if (DapDo == true)
-                    {
-                        DapDo = false;
-                        GameScr.info1.addInfo("Tắt đập đồ", 0);
+                        VongQuay2 = false;
+                        VongQuay1 = false;
+                        DapDo2 = false;
+                        DapDo1 = false;
+                        GameScr.info1.addInfo("Tắt auto", 0);
                         break;
                     }
                     break;
@@ -1257,7 +1281,24 @@ namespace AssemblyCSharp.Mod.PickMob
             MacSet2();
             PickMobController.Revive();
             dapDo1();
-            DapDo2();
+            charAutoFocus();
+            PickMobController.sellThoiVang();
+            //DapDo2func();
+            if (IsRemoveItem)
+            {
+                for (int i = 0; i < global::Char.myCharz().arrItemBag.Length; i++)
+                {
+                    if (global::Char.myCharz().arrItemBag[i].template.id != 381 &&
+                    global::Char.myCharz().arrItemBag[i].template.id != 382 &&
+                    global::Char.myCharz().arrItemBag[i].template.id != 383 &&
+                    global::Char.myCharz().arrItemBag[i].template.id != 384)
+                    {
+                        Service.gI().useItem(2, 1, (sbyte)i, -1);
+                        GameScr.info1.addInfo("Vứt: "+ Char.myCharz().arrItemBag[i].template.name, 0);
+                    }
+                }
+            }
+            
             if (cHP)
             {
                 Service.gI().upPotential(0, 1);
@@ -1276,9 +1317,14 @@ namespace AssemblyCSharp.Mod.PickMob
                 Service.gI().upPotential(2, 10);
                 Service.gI().upPotential(2, 100);
             }
-
+            if (cGiap)
+            {
+                Service.gI().upPotential(3, 1);
+                Service.gI().upPotential(3, 10);
+                Service.gI().upPotential(3, 100);
+            }
         } 
-        public static bool cHP, cMP, cSD;
+        public static bool cHP, cMP, cSD, cGiap;
         static bool step12 = false, step22 = false, step3 = false,step4 =false;
         public static void VongQuaytd()
         {
@@ -1293,56 +1339,60 @@ namespace AssemblyCSharp.Mod.PickMob
                 }
             } ;
             step12 = false; step22 = false; step3 = false; step4 = false;
-            while (VongQuay)
+            Service.gI().openMenu(19);
+            Service.gI().confirmMenu(19, 4);
+            if (VongQuay1)
             {
-                
-                if(step12 == false)
-                {
-                    Service.gI().openMenu(19);
-                    step12 = true;
-                    Thread.Sleep(100);
-                    
-                }
-                if(step12 == true && step22 == false)
-                {
-                    Service.gI().confirmMenu(19, 4);
-                    step22 = true;
-                    Thread.Sleep(100);
-                    
-                }
-                if (step12 == true && step22 == true && step3 == false)
-                {
-                    Service.gI().confirmMenu(19, 2);
-                    step3 = true;
-                }
-               
-                if (step12 == true && step22 == true && step3 == true)
-                {
-                    GameCanvas.gI().keyPressedz(49);
-                    GameCanvas.gI().keyPressedz(50);
-                    GameCanvas.gI().keyPressedz(51);
-                    GameCanvas.gI().keyPressedz(52);
-                    GameCanvas.gI().keyPressedz(53);
-                    GameCanvas.gI().keyPressedz(54);
-                    GameCanvas.gI().keyPressedz(55);
-                    Thread.Sleep(200);
-                    
-                }
-                if (step12 == true && step22 == true && step3 == true && step4==false)
-                {
-                    GameCanvas.gI().keyPressedz(-21);
-                    Thread.Sleep(100);
-                    GameCanvas.gI().keyPressedz(-21);
-                    step4 = false;
-                }
-                    Thread.Sleep(200);
+                Service.gI().confirmMenu(19, 1);
             }
-            
+            else
+            {
+                Service.gI().confirmMenu(19, 2);
+            }
+            Thread.Sleep(2000);
+            while (VongQuay2||VongQuay1)
+            {
+                if (Input.GetKey("o"))
+                {
+                    GameScr.info1.addInfo("Auto đã tắt", 0);
+                    CrackBallScr.gI().doClickSkill(1);
+                    CrackBallScr.gI().doClickSkill(1);
+                    VongQuay2 = false;
+                    VongQuay1 = false;
+                    break;
+                }
+                for (int i = 0; i < 7; i++)
+                {
+                    CrackBallScr.gI().doClickBall(i);
+                }
+                Thread.Sleep(1000);
+                CrackBallScr.gI().doClickSkill(0);
+                CrackBallScr.gI().doClickSkill(0);
+                Service.gI().openMenu(19);
+                Service.gI().confirmMenu(19, 4);
+                Service.gI().confirmMenu(19, 3);
+                Thread.Sleep(1000);
+                if (global::Char.myCharz().arrItemShop[0].Length >= 43)
+                {
+                    for (int i = global::Char.myCharz().arrItemShop[0].Length - 1; i >= 0; i--)
+                    {
+                        Service.gI().buyItem(2, i, 0);
+                        //Thread.Sleep(100);
+                    }
+                }
+            }
+
         }
         public static void dapDo1()
         {
-            if (DapDo1 == true && TileMap.mapID == 5)
+            
+            if (DapDo2 == true || DapDo1 == true)
             {
+                if (TileMap.mapID != 5)
+                {
+                    XmapController.StartRunToMapId(5);
+                    return;
+                }
                 bool isNhanVang = false;
                 bool flag = !GameCanvas.menu.showMenu && !GameCanvas.panel.isShow;
                 if (flag)
@@ -1351,13 +1401,26 @@ namespace AssemblyCSharp.Mod.PickMob
                     step1 = true;
                     return;
                 }
-                if (step1 && GameCanvas.menu.menuItems.size() == 4)
+                if(DapDo1 == true)
                 {
-                    Service.gI().confirmMenu(21, 0);
-                    step1 = false; Thread.Sleep(100);
+                    if (step1 && GameCanvas.menu.menuItems.size() == 4)
+                    {
+                        Service.gI().confirmMenu(21, 0);
+                        step1 = false; Thread.Sleep(100);
+                    }
                 }
-                if (GameCanvas.panel.vItemCombine.size() != 2)
-                    return;
+                else if(DapDo2 == true) {
+                    if (step1 && GameCanvas.menu.menuItems.size() == 4)
+                    {
+                        Service.gI().confirmMenu(21, 1);
+                        step1 = false;
+                    }
+                }
+                if (DapDo1 == true)
+                {
+                    if (GameCanvas.panel.vItemCombine.size() != 2)
+                        return;
+                }   
                 for (int i = 0; i < GameCanvas.panel.vItemCombine.size(); i++)
                 {
                     Item item = (Item)GameCanvas.panel.vItemCombine.elementAt(i);
@@ -1367,6 +1430,12 @@ namespace AssemblyCSharp.Mod.PickMob
                         MyVector myVector = GameCanvas.panel.vItemCombine;
                         Service.gI().combine(1, myVector);
                         GameCanvas.gI().keyPressedz(-5);
+                        if (Input.GetKey("o"))
+                        {
+                            GameScr.info1.addInfo("Auto đã tắt", 0);
+                            DapDo1 = false;
+                            break;
+                        }
                     }
                 }
                 if (Char.myCharz().xu < 200000000 && DapDo1)
@@ -1375,17 +1444,33 @@ namespace AssemblyCSharp.Mod.PickMob
                     Service.gI().confirmMenu((short)1, (sbyte)0);
                     isNhanVang = true;
                 }
-                if (isNhanVang)
+                if(DapDo1 == true)
                 {
-                    GameCanvas.menu.showMenu = false;
-                    step1 = true;
-                    GameCanvas.menu.doCloseMenu();
+                    if (isNhanVang)
+                    {
+                        GameCanvas.menu.showMenu = false;
+                        step1 = true;
+                        GameCanvas.menu.doCloseMenu();
+                    }
                 }
+                else if (DapDo2 == true)
+                {
+                    if (isNhanVang)
+                    {
+
+                        step1 = true;
+                        if (XmapController.getX(0) > 0 && XmapController.getY(0) > 0 && XmapData.CanNextMap())
+                        {
+                            XmapController.MoveMyChar(XmapController.getX(0), XmapController.getY(0));
+                        }
+                    }
+                }
+                
             }
         }
-        public static void DapDo2()
+        public static void DapDo2func()
         {
-            if (DapDo == true)
+            if (DapDo2 == true)
             {
                 if (TileMap.mapID != 5)
                 {
@@ -1404,19 +1489,26 @@ namespace AssemblyCSharp.Mod.PickMob
                 if (step1 && GameCanvas.menu.menuItems.size() == 4)
                 {
                     Service.gI().confirmMenu(21, 1);
-                    step1 = false; Thread.Sleep(50);
+                    step1 = false; 
                 }
                 for (int i = 0; i < GameCanvas.panel.vItemCombine.size(); i++)
                 {
+                    
                     if ((Item)GameCanvas.panel.vItemCombine.elementAt(i) != null)
                     {
 
                         MyVector myVector = GameCanvas.panel.vItemCombine;
                         Service.gI().combine(1, myVector);
                         GameCanvas.gI().keyPressedz(-5);
+                        if (Input.GetKey("o"))
+                        {
+                            GameScr.info1.addInfo("Auto đã tắt", 0);
+                            DapDo2 = false;
+                            break;
+                        }
                     }
                 }
-                if (Char.myCharz().xu < 200000000 && DapDo)
+                if (Char.myCharz().xu < 200000000 && DapDo2)
                 {
                     Service.gI().openMenu(1);
                     Service.gI().confirmMenu((short)1, (sbyte)0);
@@ -1561,6 +1653,7 @@ namespace AssemblyCSharp.Mod.PickMob
         //focus char
         public static void charAutoFocus()
         {
+            if(isCharAutoFocus)
             PickMobController.AutoFocus();
         }
         // tốc độ chạy
@@ -1605,16 +1698,14 @@ namespace AssemblyCSharp.Mod.PickMob
                 GameScr.gI().doUseHP();
             }
         }
+        static bool stepr1 = false, stepr2 = false;
         public static void Info(string text)
         {
             if(text.Contains("không thể nhặt"))
             {
                 IsNhatDoUpDT = false;
             }
-            if(text.ToLower().Contains("rương phụ đã đầy"))
-            {
-                VongQuay = false;
-            }
+            
             if (text.ToLower().Contains("cần 1 trang bị có lỗ"))
             {
                 DapDo1 = false;

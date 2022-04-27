@@ -307,10 +307,10 @@ namespace AssemblyCSharp.Mod.Xmap
             {
                 XmapController.StartRunToMapId(23);
             }
-            if (text.ToLower().Contains("rương phụ đã đầy"))
-            {
-                PickMob.PickMob.VongQuay = false;
-            }
+            //if (text.ToLower().Contains("rương phụ đã đầy"))
+            //{
+            //    PickMob.PickMob.VongQuay = false;
+            //}
             if (text.ToLower().Contains("cần 1 trang bị có lỗ"))
             {
                 PickMob.PickMob.DapDo1 = false;

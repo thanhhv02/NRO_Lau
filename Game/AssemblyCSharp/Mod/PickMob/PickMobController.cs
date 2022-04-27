@@ -682,7 +682,7 @@ namespace AssemblyCSharp.Mod.PickMob
                             else
                             {
                                 XmapController.MoveMyChar(mobFocus.xFirst, mobFocus.yFirst);
-                                //Move(mobFocus.xFirst, mobFocus.yFirst);
+                                Move(mobFocus.xFirst, mobFocus.yFirst);
                             }
 
                         }
@@ -705,7 +705,7 @@ namespace AssemblyCSharp.Mod.PickMob
         static int i = 200;
         public static void autoLogin()
         {
-        
+            
                 if (PickMob.IsAutoLogin == true)
                 {
 
@@ -1006,20 +1006,82 @@ namespace AssemblyCSharp.Mod.PickMob
         //Auto focus
         public static void AutoFocus()
         {
+            //if (PickMob.CharAutoFocus == null)
+            //{
+            //    if (Char.myCharz().charFocus != null)
+            //    {
+            //        PickMob.CharAutoFocus = Char.myCharz().charFocus;
+            //        GameScr.info1.addInfo("Auto focus: " + PickMob.CharAutoFocus.cName, 0);
+            //    }
+            //}
+            //else
+            //{
+            //    PickMob.CharAutoFocus = null;
+            //    GameScr.info1.addInfo("Tắt auto focus", 0);
+            //}
+            
             if (PickMob.CharAutoFocus == null)
             {
-                if (Char.myCharz().charFocus != null)
+                return;
+            }
+            global::Char.myCharz().charFocus = PickMob.CharAutoFocus;
+            bool flag = true;
+            if (GameCanvas.gameTick % 30 != 0)
+            {
+                return;
+            }
+            
+            for (int i = 0; i < GameScr.vCharInMap.size(); i++)
+            {
+                if (GameScr.vCharInMap.elementAt(i) == PickMob.CharAutoFocus)
                 {
-                    PickMob.CharAutoFocus = Char.myCharz().charFocus;
-                    GameScr.info1.addInfo("Auto focus: " + PickMob.CharAutoFocus.cName, 0);
+                    flag = true;
                 }
             }
-            else
+            if (!flag || PickMob.mapNameAutoFocus != TileMap.mapName)
             {
                 PickMob.CharAutoFocus = null;
-                GameScr.info1.addInfo("Tắt auto focus", 0);
+                PickMob.mapNameAutoFocus = null;
+                PickMob.isCharAutoFocus = false;
             }
 
+        }
+        public static void sellThoiVang()
+        {
+            if (PickMob.isBanVang)
+            {
+                Service.gI().openMenu(39);
+                for (int i = 0; i < global::Char.myCharz().arrItemBag.Length; i++)
+                {
+                    if (global::Char.myCharz().arrItemBag[i].template.id == 457)
+                    {
+                        bool flag = false;
+                        PickMob.isSell = true;
+                        int num = 0;
+                        int j = global::Char.myCharz().arrItemBag[i].quantity;
+                        while (j > 3)
+                        {
+                            Service.gI().saleItem(0, 1, (short)((sbyte)i));
+                            Thread.Sleep(500);
+                            num++;
+                            j--;
+                            flag = true;
+                            if (num == 3)
+                            {
+                                break;
+                            }
+                        }
+                        if (flag)
+                        {
+                            PickMob.DapDo2 = true;
+                        }
+                        PickMob.isSell = false;
+                        PickMob.isBanVang = false;
+                        return;
+                    }
+                }
+            }
+            
         }
         public static void AutoFocusBoss()
         {

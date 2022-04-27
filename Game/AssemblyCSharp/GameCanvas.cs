@@ -540,7 +540,8 @@ public class GameCanvas : IActionListener
 				if (mSystem.currentTimeMillis() - lastTimePress > 20000 && currentScreen == loginScr)
 				{
 					//mod auto login
-					PickMob.IsAutoLogin = true;
+					if (!ServerListScreen.isGetData)
+						PickMob.IsAutoLogin = true;
 					GameMidlet.instance.exit();
 				}
 				gameTick = 0;
@@ -664,13 +665,15 @@ public class GameCanvas : IActionListener
 					if (currentScreen == loginScr && !Service.reciveFromMainSession)
 					{
 						//mod auto login
-						PickMob.IsAutoLogin = true;
+						if (!ServerListScreen.isGetData)
+							PickMob.IsAutoLogin = true;
 						onDisconnected();
 					}
 				}
 				else
 				{
-					PickMob.IsAutoLogin = true;
+					if (!ServerListScreen.isGetData)
+						PickMob.IsAutoLogin = true;
 					onDisconnected();
 				}
 				Controller.isDisconnected = false;
@@ -687,13 +690,15 @@ public class GameCanvas : IActionListener
 					if (currentScreen == loginScr && !Service.reciveFromMainSession)
 					{
 						//mod auto login
-						PickMob.IsAutoLogin = true;
+						if (!ServerListScreen.isGetData)
+							PickMob.IsAutoLogin = true;
 						onConnectionFail();
 					}
 				}
 				else
 				{
-					PickMob.IsAutoLogin = true;
+					if (!ServerListScreen.isGetData)
+						PickMob.IsAutoLogin = true;
 					onConnectionFail();
 				}
 				Controller.isConnectionFail = false;
@@ -741,8 +746,8 @@ public class GameCanvas : IActionListener
 				#region mod AutoLogin
 
 				//PickMob.autoLogin();
-
-				PickMob.IsAutoLogin = true;
+				if (!ServerListScreen.isGetData)
+					PickMob.IsAutoLogin = true;
 				//startOKDlg(mResources.maychutathoacmatsong);
 
 				#endregion
@@ -753,8 +758,8 @@ public class GameCanvas : IActionListener
 			#region mod AutoLogin
 
 			//PickMob.autoLogin();
-
-			PickMob.IsAutoLogin = true;
+			if (!ServerListScreen.isGetData)
+				PickMob.IsAutoLogin = true;
 			//startOKDlg(mResources.maychutathoacmatsong);
 
 			#endregion
@@ -817,7 +822,8 @@ public class GameCanvas : IActionListener
 		LoginScr.serverName = ServerListScreen.nameServer[ServerListScreen.ipSelect];
 		if (currentScreen != serverScreen)
 		{
-			PickMob.IsAutoLogin = true;
+			if (!ServerListScreen.isGetData)
+				PickMob.IsAutoLogin = true;
 			startOK(mResources.lost_connection + LoginScr.serverName, 888395, null);
 		}
 		else
@@ -2120,9 +2126,10 @@ public class GameCanvas : IActionListener
 			{
 				if (currentScreen == loginScr || currentScreen == serverScreen || currentScreen == serverScr)
 				{
-					PickMob.IsAutoLogin = true;
+					if (!ServerListScreen.isGetData)
+						PickMob.IsAutoLogin = true;
 					g.drawImage(img12, 5, 5, 0);
-					PickMob.IsAutoLogin = true;
+					//PickMob.IsAutoLogin = true;
 				}
 				if (currentScreen == CreateCharScr.instance)
 				{
@@ -2151,13 +2158,17 @@ public class GameCanvas : IActionListener
 		PickMob.startOkDlg(info);
 		if(info.ToLower().Contains("đã đạt số pha lê"))
         {
-			PickMob.DapDo = false;
+			PickMob.DapDo2 = false;
         }
 		if (info.ToLower().Contains("không thể đổi khu vực"))
         {
 			return;
 		}
 		if (info.ToLower().Contains("bạn không có đủ tiềm năng"))
+		{
+			return;
+		}
+		if (info.ToLower().Contains("bạn cần thêm"))
 		{
 			return;
 		}

@@ -2491,6 +2491,7 @@ public class Controller : IMessageHandler
 				if (GameCanvas.currentScreen == GameCanvas.loginScr)
 				{
 					GameCanvas.serverScreen.switchToMe();
+						if(!ServerListScreen.isGetData)
 						PickMob.IsAutoLogin = true;
 				}
 				break;

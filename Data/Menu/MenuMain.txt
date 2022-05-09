@@ -1,0 +1,11 @@
+Auto Map|141001
+Auto Skill|151002
+Auto Pean|161000
+Auto Pick|190000
+Auto Train|171000
+Auto Chat|200000
+Up Đệ|121005
+Auto|210000
+Đồ Họa|220000
+#Load Setting|230000
+More|181000
